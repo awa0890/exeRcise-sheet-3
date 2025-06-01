@@ -101,7 +101,39 @@ a)  Load the `pixar_films` dataset into R. Clean the dataset by removing
     the possible values and what do they mean? Create a factor variable
     for the film rating. Why is this appropriate?
 
-<!-- -->
+```{r}
+library(tidyverse)
+library(tidytuesdayR)
+tuesdata <- tidytuesdayR::tt_load(2025, week = 10)
+
+pixar_films <- tuesdata$pixar_films
+pixar_films <- pixar_films %>% drop_na(film) 
+pixar_films <- pixar_films %>% 
+  mutate(film_rating = as.factor(pixar_films$film_rating))
+
+```
+
+The character variable `film_rating` is based on the Motion Picture
+Association film rating system and the possible values are:
+
+-   G - General Audiences (All ages admitted)
+
+-   PG - Parental Guidance Suggested (*Some material may not be suitable
+    for children*)
+
+-   PG-13 - Parents Strongly Cautioned (Some material may be
+    inappropriate for children under 13)
+
+-   R - Restricted (Under 17 requires accompanying parent or adult
+    guardian)
+
+-   NC-17 - Adults Only (No one 17 and under admitted)
+
+It is appropriate to use a factor for the variable film_rating, because
+it was a character variable before and a factor variable allows us to
+create correct and meaningful plots based on the factor variable and
+doing calculations based on the factor variable, which cannot be done on
+a character variable.
 
 b)  Inspect the film titles manually. Which films form a film series? A
     film series can be identified by a common word in the titles of the
