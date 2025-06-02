@@ -115,6 +115,7 @@ a)  Load the `pixar_films` dataset into R. Clean the dataset by removing
     for the film rating. Why is this appropriate?
 
 ```{r}
+library(tidyverse)
 pixar_films <- pixar_films %>% drop_na(film) 
 pixar_films <- pixar_films %>% 
   mutate(film_rating = as.factor(pixar_films$film_rating))
@@ -172,11 +173,13 @@ c)  Load the `public_response` dataframe into R. Convert the
     dataset using an appropriate merge variable.
 
 ```{r}
-public_response$cinema_score <- factor(public_response$cinema_score, levels = (c("F", 
-                                                                                 "D-", "D", "D+", 
-                                                                                 "C-", "C", "C+",
-                                                                                 "B-", "B", "B+",
-                                                                                 "A-", "A", "A+")),ordered = TRUE)
+public_response$cinema_score <- factor(public_response$cinema_score, 
+                                       levels = (c("F",
+                                                   "D-", "D", "D+",
+                                                   "C-", "C", "C+",
+                                                   "B-", "B", "B+",
+                                                   "A-", "A", "A+")),
+                                       ordered = TRUE)
 merged_df <- full_join(public_response, pixar_films, by = "film")
 ```
 
@@ -213,6 +216,7 @@ plot <- ggplot(bar_plot_data,
     y = "Rotten Tomatoes Score",
     fill = "Film Title"
   )
+plot
 ```
 
 Obervations:
@@ -237,22 +241,114 @@ a)  Go to <https://github.com/owid/owid-datasets/tree/master/datasets>
     and choose a dataset that interests you. You can have a look at
     <https://ourworldindata.org/> to gather some inspiration.
 b)  Download the dataset and track it in git.
+
+```{r}
+time_spend <- read.csv("C:/Users/Dell 7390/Desktop/Andreas Wallner/LMU/Neuer Ordner/Fortgeschrittene Statistische Software für NF/Exercise_3/2025-exeRcise-sheet-3/How Europeans spend their time - European Commission (2004).csv", header=TRUE)
+```
+
 c)  Put the name / title of the dataset and a link to it below.
 
--   Dataset Name: ...
--   Link: <https://github.com/owid/owid-datasets/>...
+-   Dataset Name: How Europeans spend their time - European Commission
+    (2004) 
+-   Link:
+    [https://github.com/owid/owid-datasets/tree/master/datasets/How%20Europeans%20spend%20their%20time%20-%20European%20Commission%20(2004)](https://github.com/owid/owid-datasets/tree/master/datasets/How%20Europeans%20spend%20their%20time%20-%20European%20Commission%20(2004)){.uri}
 
 d)  Come up with a (research) question you want to answer with the data
     and briefly explain why you believe this is an interesting question
     within one sentence. It should be a question that can be answered
     with the dataset and using R.
+
+    Question: Who has the most free time in Europe regarding sex and different countries?
+
+    Importance: People who have more free time than others are
+    potentially more interested in further activities like sports,
+    fitness, reading, tv, gaming,... . That information can be a viable
+    source for companies in these segments to concentrate on specific
+    markets with people with more free time.
+
 e)  Use R to answer your chosen question. Please limit your analysis to
     the functions and techniques we have covered so far in the course.
     You are **not expected** to use advanced statistical models or
     external packages which haven't been introduced.
+
+```{r}
+library(tidyverse)
+
+filtered_time_spend <- time_spend %>%
+  select(Entity,
+         Year,
+         Free.time..women..European.Commission..2004.., 
+         Free.time..men..European.Commission..2004..) %>%
+  mutate(free_time_women=Free.time..women..European.Commission..2004..,
+         free_time_men=Free.time..men..European.Commission..2004..)
+summary(filtered_time_spend)
+```
+
+- Country with the most free time for women
+
+```{r}
+most_freetime_women <- filtered_time_spend %>% 
+  select(Entity, free_time_women) %>%
+  arrange(desc(free_time_women)) %>% 
+  slice(1)
+most_freetime_women
+```
+
+- Country with the least free time for 
+
+```{r}
+least_free_time_women <- filtered_time_spend %>% 
+  select(Entity, free_time_women) %>%
+  arrange(free_time_women) %>% 
+  slice(1)
+least_free_time_women
+```
+
+- Country with the most free time for men 
+
+```{r}
+most_freetime_men <- filtered_time_spend %>% 
+  select(Entity, free_time_men) %>%
+  arrange(desc(free_time_men)) %>% 
+  slice(1)
+most_freetime_men
+```
+
+- Country with the least free time for men
+
+```{r}
+least_free_time_men <- filtered_time_spend %>% 
+  select(Entity, free_time_men) %>%
+  arrange(free_time_men) %>% 
+  slice(1)
+least_free_time_men
+```
+
 f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
     correctly label the figure.
+
+```{r bar,fig.cap="Free Time for women and men in selected european countries",out.extra=""}
+library(patchwork)
+plot_free_time_women <- ggplot(data = filtered_time_spend, 
+                               aes(x=Entity,y=free_time_women)) + 
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  xlab("Countries") + 
+  ylab("Free time (min)") + 
+  ggtitle("Free Time for women in Europe")
+plot_free_time_men <- ggplot(data = filtered_time_spend, 
+                             aes(x=Entity, y=free_time_men)) + 
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  xlab("Countries") + 
+  ylab("Free time (min)") + 
+  ggtitle("Free Time for men in Europe")
+(plot_free_time_women | plot_free_time_men)
+
+```
 
 ## Final Note
 
