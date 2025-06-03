@@ -276,7 +276,6 @@ library(tidyverse)
 
 filtered_time_spend <- time_spend %>%
   select(Entity,
-         Year,
          Free.time..women..European.Commission..2004.., 
          Free.time..men..European.Commission..2004..) %>%
   mutate(free_time_women=Free.time..women..European.Commission..2004..,
@@ -294,7 +293,7 @@ most_freetime_women <- filtered_time_spend %>%
 most_freetime_women
 ```
 
-- Country with the least free time for 
+- Country with the least free time for women
 
 ```{r}
 least_free_time_women <- filtered_time_spend %>% 
@@ -323,6 +322,21 @@ least_free_time_men <- filtered_time_spend %>%
   slice(1)
 least_free_time_men
 ```
+
+Observations: 
+
+- Women have a free time of 297.4 minutes on average, while men have 333.8 min of free time on average a day.
+- Mean and Median are close, so there are no outliers. 
+- Women in Norway have the most free time (351.76 min), while women in France have the least free time (248 min). 
+- Men in Finland have the most free time (368 min), while men in France have the least free time (286 min). 
+- Men have on average more free time then women. 
+- Men and Women in France have the least free time of all observed countries.
+
+Conclusion:
+
+- For companies who offer free time activities it could make sense to focus their marketing campaigns on Norway, Finland and Germany, because in these countries people have the most free time. 
+- Otherwise, marketing campaigns could be less effective in France, because the French have the least free time in the observed countries. 
+
 
 f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
