@@ -125,6 +125,9 @@ pixar_films <- pixar_films %>%
 The character variable `film_rating` is based on the Motion Picture
 Association film rating system and the possible values are:
 
+In General the Motion Picture Association film rating system has the
+following values:
+
 -   G - General Audiences (All ages admitted)
 
 -   PG - Parental Guidance Suggested (*Some material may not be suitable
@@ -137,6 +140,13 @@ Association film rating system and the possible values are:
     guardian)
 
 -   NC-17 - Adults Only (No one 17 and under admitted)
+
+**In this dataset there are just three values possible:**
+
+-   G - General Audiences (All ages admitted)
+-   PG - Parental Guidance Suggested (*Some material may not be suitable
+    for children*)
+-   N/A - Not rated (yet?)
 
 It is appropriate to use a factor for the variable film_rating, because
 it was a character variable before and a factor variable allows us to
@@ -258,7 +268,8 @@ d)  Come up with a (research) question you want to answer with the data
     within one sentence. It should be a question that can be answered
     with the dataset and using R.
 
-    Question: Who has the most free time in Europe regarding sex and different countries?
+    Question: Who has the most free time in Europe regarding sex and
+    different countries?
 
     Importance: People who have more free time than others are
     potentially more interested in further activities like sports,
@@ -283,7 +294,7 @@ filtered_time_spend <- time_spend %>%
 summary(filtered_time_spend)
 ```
 
-- Country with the most free time for women
+-   Country with the most free time for women
 
 ```{r}
 most_freetime_women <- filtered_time_spend %>% 
@@ -293,7 +304,7 @@ most_freetime_women <- filtered_time_spend %>%
 most_freetime_women
 ```
 
-- Country with the least free time for women
+-   Country with the least free time for women
 
 ```{r}
 least_free_time_women <- filtered_time_spend %>% 
@@ -303,7 +314,7 @@ least_free_time_women <- filtered_time_spend %>%
 least_free_time_women
 ```
 
-- Country with the most free time for men 
+-   Country with the most free time for men
 
 ```{r}
 most_freetime_men <- filtered_time_spend %>% 
@@ -313,7 +324,7 @@ most_freetime_men <- filtered_time_spend %>%
 most_freetime_men
 ```
 
-- Country with the least free time for men
+-   Country with the least free time for men
 
 ```{r}
 least_free_time_men <- filtered_time_spend %>% 
@@ -323,20 +334,27 @@ least_free_time_men <- filtered_time_spend %>%
 least_free_time_men
 ```
 
-Observations: 
+Observations:
 
-- Women have a free time of 297.4 minutes on average, while men have 333.8 min of free time on average a day.
-- Mean and Median are close, so there are no outliers. 
-- Women in Norway have the most free time (351.76 min), while women in France have the least free time (248 min). 
-- Men in Finland have the most free time (368 min), while men in France have the least free time (286 min). 
-- Men have on average more free time then women. 
-- Men and Women in France have the least free time of all observed countries.
+-   Women have a free time of 297.4 minutes on average, while men have
+    333.8 min of free time on average a day.
+-   Mean and Median are close, so there are no outliers.
+-   Women in Norway have the most free time (351.76 min), while women in
+    France have the least free time (248 min).
+-   Men in Finland have the most free time (368 min), while men in
+    France have the least free time (286 min).
+-   Men have on average more free time then women.
+-   Men and Women in France have the least free time of all observed
+    countries.
 
 Conclusion:
 
-- For companies who offer free time activities it could make sense to focus their marketing campaigns on Norway, Finland and Germany, because in these countries people have the most free time. 
-- Otherwise, marketing campaigns could be less effective in France, because the French have the least free time in the observed countries. 
-
+-   For companies who offer free time activities it could make sense to
+    focus their marketing campaigns on Norway, Finland and Germany,
+    because in these countries people have the most free time.
+-   Otherwise, marketing campaigns could be less effective in France,
+    because the French have the least free time in the observed
+    countries.
 
 f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
