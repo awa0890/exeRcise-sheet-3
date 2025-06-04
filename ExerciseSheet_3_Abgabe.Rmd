@@ -232,8 +232,8 @@ plot
 
 Obervations:
 
--   The Series Cars is declining in the Rotten Tomatoes Score, with a very bad
-    Score for Cars 2
+-   The series Cars is declining in the Rotten Tomatoes Score, with a very bad
+    score for Cars 2
 
 -   The film series Toy Story is maintaining a very high score over the series, but is
     also declining over the films
