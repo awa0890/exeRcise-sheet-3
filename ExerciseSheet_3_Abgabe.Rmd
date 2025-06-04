@@ -162,7 +162,7 @@ b)  Inspect the film titles manually. Which films form a film series? A
     and how many films belong to the series. Output the dataframe.
 
 ```{r}
-pixar_films$film
+head(pixar_films$film,10)
 film_series <- c("Toy Story", "Cars","Incredibles")
 pixar_films <- pixar_films %>%
   mutate(series = str_extract(film, paste(film_series, collapse = "|")))
@@ -191,6 +191,7 @@ public_response$cinema_score <- factor(public_response$cinema_score,
                                                    "A-", "A", "A+")),
                                        ordered = TRUE)
 merged_df <- full_join(public_response, pixar_films, by = "film")
+head(merged_df,10)
 ```
 
 d)  Choose one of the variables representing the public response and
